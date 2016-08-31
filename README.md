@@ -44,7 +44,8 @@ if no filter is given It will compare source & destination pcap file by source p
 once the comparision is done It will create two file found.txt & not_found.txt in same location with detail
 of found & not found packet details
 
-EXAMPLE WITH NO FILTER---
+  EXAMPLE WITH NO FILTER---
+
 $ ./suraj_wi_debug client.pcapng modem.pcap 
 The argument supplied is source file=client.pcapng dest file =modem.pcap
 
@@ -100,7 +101,7 @@ NOT FOUND current count=6       ipv4 PACKid =0x6a2e     source ip=172.17.213.13 
 NOT FOUND current count=7       ipv4 PACKid =0xa0a3     source ip=172.17.213.13         destination ip   10.64.218.26   protocol 6  
 NOT FOUND current count=8       ipv4 PACKid =0x6a2e     source ip=172.17.213.13         destination ip   10.64.218.26   protocol 6  
 
-EXAMPLE WITH FILTER---
+   EXAMPLE WITH FILTER---
 $ ./suraj_wi_debug client.pcapng modem.pcap 
 The argument supplied is source file=client.pcapng dest file =modem.pcap
 
