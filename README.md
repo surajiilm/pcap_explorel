@@ -76,7 +76,7 @@ packet found count =848
 
 packet drop or not found count =2099
 
-~~~~comparision done . please check file=found.txt for found & file=not_found.txt for Drop~~~
+~~~~comparision done . please check file=found.txt for found & file=not_found.txt for Drop
 
 $ cat  found.txt
 FOUND current count=1   ipv4 PACKid =0x6a3a     source ip=172.17.213.13         destination ip  65.55.252.43    protocol 6 
@@ -131,7 +131,7 @@ packet found count =13
 
 packet drop or not found count =266
 
-~~~~comparision done . please check file=found.txt for found & file=not_found.txt for Drop~~~
+~~~~comparision done . please check file=found.txt for found & file=not_found.txt for Drop
 
 
 
