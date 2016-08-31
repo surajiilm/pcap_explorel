@@ -5,6 +5,7 @@ ipv6 support is not added.
 This program depends on libpcap library . so before compiling wire_read.cpp file please install libpcap library
 
 Steps to install libpcap library on linux Ubuntu refrence http://www.linuxfromscratch.org/blfs/view/svn/basicnet/libpcap.html 
+
 1) wget http://www.tcpdump.org/release/libpcap-1.7.4.tar.gz 
 
 2) wget http://www.linuxfromscratch.org/patches/blfs/svn/libpcap-1.7.4-enable_bluetooth-1.patch 
@@ -27,6 +28,7 @@ There is already precompiled binary for ubuntu 3.2.0-40-generic with name suraj_
 If you want you can compile for your linux.
 just we need to compile wire_read.cpp using g++.
 so compilation steps-
+
 1) copy wire_read.cpp in some folder
 
 2) g++ wire_read.cpp  -lpcap -o pcap_exp
@@ -67,7 +69,7 @@ You havent entered any filter . Now comparision will on based on ipv4 id
 ~~dest_pcap_file==      modem.pcap
 
 
-~~~~~~~doing comparision . please wait!~~~~~~~ 
+doing comparision . please wait!
 
 
 packet found count =848
@@ -122,7 +124,7 @@ Now comparision will on based on ((source_ip=202.154.164.205 || dest_ip=10.4.45.
 ~~dest_pcap_file==      modem.pcap
 
 
-~~~~~~~doing comparision . please wait!~~~~~~~ 
+         doing comparision . please wait!
 
 
 packet found count =13
