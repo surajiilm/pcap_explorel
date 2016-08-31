@@ -44,7 +44,7 @@ if no filter is given It will compare source & destination pcap file by source p
 once the comparision is done It will create two file found.txt & not_found.txt in same location with detail
 of found & not found packet details
 
-  EXAMPLE WITH NO FILTER---
+     EXAMPLE WITH NO FILTER---
 
 $ ./suraj_wi_debug client.pcapng modem.pcap 
 The argument supplied is source file=client.pcapng dest file =modem.pcap
@@ -125,7 +125,7 @@ Now comparision will on based on ((source_ip=202.154.164.205 || dest_ip=10.4.45.
 ~~dest_pcap_file==      modem.pcap
 
 
-         doing comparision . please wait!
+  doing comparision . please wait!
 
 
 packet found count =13
