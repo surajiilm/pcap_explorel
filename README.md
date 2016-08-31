@@ -28,7 +28,9 @@ If you want you can compile for your linux.
 just we need to compile wire_read.cpp using g++.
 so compilation steps-
 1) copy wire_read.cpp in some folder
+
 2) g++ wire_read.cpp  -lpcap -o pcap_exp
+
 
 Now we can run pcap_exp binary . for ruuning we have to give location of two pcap file to compare.
 It will compare first wireshark with second wireshark file
