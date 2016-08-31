@@ -5,14 +5,22 @@ ipv6 support is not added.
 This program depends on libpcap library . so before compiling wire_read.cpp file please install libpcap library
 
 Steps to install libpcap library on linux Ubuntu refrence http://www.linuxfromscratch.org/blfs/view/svn/basicnet/libpcap.html 
-1) wget http://www.tcpdump.org/release/libpcap-1.7.4.tar.gz
-2) wget http://www.linuxfromscratch.org/patches/blfs/svn/libpcap-1.7.4-enable_bluetooth-1.patch
-3) tar xf libpcap-1.7.4.tar.gz
-4) cd libpcap-1.7.4
-5) patch -Np1 -i ../libpcap-1.7.4-enable_bluetooth-1.patch &&
-6) ./configure --prefix=/usr &&
-7) make
-8) make install
+1) wget http://www.tcpdump.org/release/libpcap-1.7.4.tar.gz 
+
+2) wget http://www.linuxfromscratch.org/patches/blfs/svn/libpcap-1.7.4-enable_bluetooth-1.patch 
+
+3) tar xf libpcap-1.7.4.tar.gz 
+
+4) cd libpcap-1.7.4 
+
+5) patch -Np1 -i ../libpcap-1.7.4-enable_bluetooth-1.patch && 
+
+6) ./configure --prefix=/usr && 
+
+7) make 
+
+8) make install 
+
 
 There is already precompiled binary for ubuntu 3.2.0-40-generic with name suraj_wi_debug
 
