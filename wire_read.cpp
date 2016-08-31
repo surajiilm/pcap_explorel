@@ -83,7 +83,7 @@ typedef struct ipv6_header
 
 
 using namespace std;
-int compare_with_other(u_short id ,string file);
+int compare_with_other(ip_header *source_file_ip_hdr ,string file);
 
 int not_found_count =0;
 int found_count =0;
@@ -91,14 +91,13 @@ char str[INET_ADDRSTRLEN];  /*hold v4 address*/
 char str1[INET_ADDRSTRLEN]; /*hold v4 address*/
 
 
-int compare_with_other(u_short id ,string file)
+int compare_with_other(ip_header *source_file_ip_hdr ,string file)
 {
 	char errbuff[PCAP_ERRBUF_SIZE];
 	int found =0;
 	struct pcap_pkthdr *header;
 	const u_char *data;
 	pcap_t * pcap ;
-	u_short nid = 0;
 	struct ether_header *eptr;  /* net/ethernet.h */
 	ip_header *ip; //ip header
 	int packet_type = 0;
@@ -123,13 +122,11 @@ int compare_with_other(u_short id ,string file)
 			if (ntohs (eptr->ether_type) == ETHERTYPE_IP)
 			{
 				ip = (ip_header*)(data + sizeof(struct ether_header));
-				nid=ntohs(ip->identification);
-				//	printf ("\ngoint to campare id=%x NID=%x\n",id,nid);
-				if (id == nid)
+				if (source_file_ip_hdr->identification == ip->identification)
 				{
 					found =1;
 					found_count++;
-					snprintf(command, 500, "echo 'FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip  %s	protocol %d ' >> %s",found_count ,id,inet_ntop(AF_INET, &ip->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &ip->daddr, str1, INET_ADDRSTRLEN),ip->proto,FOUND_STORE_FILE);
+					snprintf(command, 500, "echo 'FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip  %s	protocol %d ' >> %s",found_count ,ntohs(source_file_ip_hdr->identification),inet_ntop(AF_INET, &source_file_ip_hdr->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &source_file_ip_hdr->daddr, str1, INET_ADDRSTRLEN),source_file_ip_hdr->proto,FOUND_STORE_FILE);
 					system (command);
 					break;
 				}
@@ -149,12 +146,11 @@ int compare_with_other(u_short id ,string file)
 			if (ntohs (sll_hdr->sll_protocol) == ETHERTYPE_IP)
 			{
 				ip = (ip_header*)(data + sizeof(struct sll_header));
-				nid=ntohs(ip->identification);
-				if (id == nid)
+				if (source_file_ip_hdr->identification == ip->identification)
 				{
 					found =1;
 					found_count++;
-					snprintf(command, 500, "echo 'FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip  %s	protocol %d  ' >> %s",found_count ,id,inet_ntop(AF_INET, &ip->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &ip->daddr, str1, INET_ADDRSTRLEN),ip->proto,FOUND_STORE_FILE);
+					snprintf(command, 500, "echo 'FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip  %s	protocol %d  ' >> %s",found_count ,ntohs(source_file_ip_hdr->identification),inet_ntop(AF_INET, &source_file_ip_hdr->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &source_file_ip_hdr->daddr, str1, INET_ADDRSTRLEN),source_file_ip_hdr->proto,FOUND_STORE_FILE);
 					system (command);
 					break;
 				}
@@ -164,12 +160,11 @@ int compare_with_other(u_short id ,string file)
 		else if (DLT_RAW == packet_type)  //raw ip
 		{
 			ip = (ip_header*)(data);
-			nid=ntohs(ip->identification);
-			if (id == nid)
+			if (source_file_ip_hdr->identification == ip->identification)
 			{
 				found =1;
 				found_count++;
-				snprintf(command, 500, "echo 'FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip  %s	protocol %d ' >> %s",found_count ,id,inet_ntop(AF_INET, &ip->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &ip->daddr, str1, INET_ADDRSTRLEN),ip->proto,FOUND_STORE_FILE);
+				snprintf(command, 500, "echo 'FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip  %s	protocol %d ' >> %s",found_count ,ntohs(source_file_ip_hdr->identification),inet_ntop(AF_INET, &source_file_ip_hdr->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &source_file_ip_hdr->daddr, str1, INET_ADDRSTRLEN),source_file_ip_hdr->proto,FOUND_STORE_FILE);
 				system (command);
 				break;
 			}
@@ -183,7 +178,7 @@ int compare_with_other(u_short id ,string file)
 	if (found ==0)
 	{
 		not_found_count++;
-		snprintf (command,500,"echo 'NOT FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip   %s	protocol %d  ' >> %s " ,not_found_count,id,inet_ntop(AF_INET, &ip->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &ip->daddr, str1, INET_ADDRSTRLEN),ip->proto,NOT_FOUND_STORE_FILE);
+		snprintf (command,500,"echo 'NOT FOUND current count=%d	ipv4 PACKid =0x%04x	source ip=%s		destination ip   %s	protocol %d  ' >> %s " ,not_found_count,ntohs(source_file_ip_hdr->identification),inet_ntop(AF_INET, &source_file_ip_hdr->saddr, str, INET_ADDRSTRLEN),inet_ntop(AF_INET, &source_file_ip_hdr->daddr, str1, INET_ADDRSTRLEN),source_file_ip_hdr->proto,NOT_FOUND_STORE_FILE);
 		system (command);
 	}
 	if (found < 0 );
@@ -402,7 +397,7 @@ int main(int argc, char *argv[])
 				ip = (ip_header*)(data + sizeof(struct ether_header));
 				if (check_filter_condition(src_tmp,dest_tmp,and_or,ip))
 				{
-					compare_with_other(ntohs(ip->identification),file1);
+					compare_with_other(ip,file1);
 				}
 			}
 			else  if (ntohs (eptr->ether_type) == ETHERTYPE_ARP)
@@ -435,14 +430,14 @@ int main(int argc, char *argv[])
 			{
 				ip = (ip_header*)(data + sizeof(struct sll_header));
 				if (check_filter_condition(src_tmp,dest_tmp,and_or,ip))
-				compare_with_other(ntohs(ip->identification),file1);
+				compare_with_other(ip,file1);
 			}
 		}
 		else if (DLT_RAW == packet_type)  //raw ip
 		{
 			ip = (ip_header*)(data);
 			if (check_filter_condition(src_tmp,dest_tmp,and_or,ip))
-			compare_with_other(ntohs(ip->identification),file1);
+			compare_with_other(ip,file1);
 		}
 		else
 		{
